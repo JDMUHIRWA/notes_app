@@ -93,7 +93,7 @@ flutter run
 ## 📹 Demo Video
 
 Watch the 5–10 minute walkthrough demo here:
-**[👉 Demo Video Link](https://drive.google.com/your-video-link)**
+**[👉 Demo Video Link](https://www.veed.io/view/85bf3468-f902-42f4-b1c0-95bfeb847487?panel=share)**
 
 ---
 
