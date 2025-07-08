@@ -1,7 +1,5 @@
 // Main entry point of the Notes App
 // This file contains the app initialization and root widget setup
-
-// Import Flutter Material package for UI components
 import 'package:flutter/material.dart';
 // Import Firebase Core for Firebase initialization
 import 'package:firebase_core/firebase_core.dart';

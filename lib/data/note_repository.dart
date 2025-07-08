@@ -47,11 +47,6 @@ class NoteRepository {
   }
 
   /// Adds a new note to the user's notes collection
-  ///
-  /// [uid] - The unique identifier of the user
-  /// [text] - The content/text of the note to be added
-  /// Returns: Future<void> that completes when the note is successfully added
-  /// Throws: Exception if the add operation fails
   Future<void> addNote(String uid, String text) async {
     await getUserNotes(
       uid,
@@ -59,12 +54,6 @@ class NoteRepository {
   }
 
   /// Updates an existing note's content
-  ///
-  /// [uid] - The unique identifier of the user
-  /// [id] - The unique identifier of the note to update
-  /// [newText] - The new content for the note
-  /// Returns: Future<void> that completes when the note is successfully updated
-  /// Throws: Exception if the update operation fails
   Future<void> updateNote(String uid, String id, String newText) async {
     await getUserNotes(uid).doc(id).update({
       'text': newText,

@@ -42,7 +42,8 @@ class _SignupScreenState extends State<SignupScreen> {
   /// - Validates that both email and password fields are filled
   /// - Shows error message if validation fails
   /// - Calls the AuthProvider signUp method if validation passes
-  void _signup() {
+  /// - Navigates back to login screen after successful signup (user will be auto-logged in)
+  void _signup() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
@@ -58,10 +59,16 @@ class _SignupScreenState extends State<SignupScreen> {
     }
 
     // Call the AuthProvider signUp method
-    Provider.of<AuthProvider>(
+    final success = await Provider.of<AuthProvider>(
       context,
       listen: false,
     ).signUp(email, password, context);
+
+    // If signup was successful, navigate back to login
+    // Firebase Auth will automatically sign in the user, and RootWidget will handle navigation
+    if (success && mounted) {
+      Navigator.pop(context); // Go back to login screen
+    }
   }
 
   /// Builds the signup screen UI

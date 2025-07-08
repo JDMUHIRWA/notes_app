@@ -48,7 +48,8 @@ class AuthProvider extends ChangeNotifier {
   ///
   /// Shows success message on successful registration
   /// Shows error message if registration fails
-  Future<void> signUp(
+  /// Returns true if signup was successful, false otherwise
+  Future<bool> signUp(
     String email,
     String password,
     BuildContext context,
@@ -59,17 +60,19 @@ class AuthProvider extends ChangeNotifier {
         email: email,
         password: password,
       );
-      if (!context.mounted) return; // Ensure context is still valid
+      if (!context.mounted) return false; // Ensure context is still valid
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Sign-up successful'),
+          content: Text('Sign-up successful! Welcome to Notes App!'),
           backgroundColor: Colors.green,
         ),
       );
+      return true; // Signup successful
     } on FirebaseAuthException catch (e) {
       // Handle Firebase authentication errors
       _handleAuthError(e, context);
+      return false; // Signup failed
     }
   }
 
@@ -81,7 +84,8 @@ class AuthProvider extends ChangeNotifier {
   ///
   /// Shows success message on successful login
   /// Shows error message if login fails
-  Future<void> login(
+  /// Returns true if login was successful, false otherwise
+  Future<bool> login(
     String email,
     String password,
     BuildContext context,
@@ -89,7 +93,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       // Attempt to sign in user with Firebase Auth
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      if (!context.mounted) return; // Ensure context is still valid
+      if (!context.mounted) return false; // Ensure context is still valid
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -97,9 +101,11 @@ class AuthProvider extends ChangeNotifier {
           backgroundColor: Colors.green,
         ),
       );
+      return true; // Login successful
     } on FirebaseAuthException catch (e) {
       // Handle Firebase authentication errors
       _handleAuthError(e, context);
+      return false; // Login failed
     }
   }
 

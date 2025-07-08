@@ -44,7 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
   /// - Validates that both email and password fields are filled
   /// - Shows error message if validation fails
   /// - Calls the AuthProvider login method if validation passes
-  void _login() {
+  /// - RootWidget will automatically navigate to notes screen on successful login
+  void _login() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
@@ -60,7 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     // Call the AuthProvider login method
-    Provider.of<AuthProvider>(
+    // RootWidget will automatically navigate to NotesScreen on successful login
+    await Provider.of<AuthProvider>(
       context,
       listen: false,
     ).login(email, password, context);
@@ -99,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
             // Navigation link to signup screen
             TextButton(
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const SignupScreen()),
                 );
